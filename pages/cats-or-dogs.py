@@ -1,8 +1,11 @@
 
+# https://github.com/fastai/fastbook/tree/master
 import streamlit as st
 import fastbook
 #hide
 from fastbook import *
+import torch
+from fastai.vision.all import *
 import os
 
 fastbook.setup_book()
@@ -34,6 +37,6 @@ def main():
         st.image(img.to_thumb(128,128), caption=f'Prediction: {is_cat}, Probability: {probs[1].item():.6f}')
         st.write("Probability of being a cat:", probs[1].item())
         st.write("Probability of being a dog:", probs[0].item())
-        
+
 if __name__ == "__main__":
     main()
