@@ -91,7 +91,7 @@ class FullyConnectedModel(nn.Module):
         self.relu = nn.ReLU()
 
         # '''TODO: Define the second Linear layer to output the classification probabilities'''
-        self.fc2 = nn.Sigmoid(128, 10)
+        self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
         x = self.flatten(x)
@@ -154,3 +154,48 @@ EPOCHS = 5
 train(fc_model, train_dataset, loss_function, optimizer=optimizer, epochs=EPOCHS) # TODO
 
 comet_model_1.end()
+
+'''TODO: Use the model we have defined in its eval state to complete
+and call the evaluate function, and calculate the accuracy of the model'''
+
+def evaluate(model, dataloader, loss_function):
+    # Evaluate model performance on the test dataset
+    model.eval()
+    test_loss = 0
+    correct_pred = 0
+    total_pred = 0
+    # Disable gradient calculations when in inference mode
+    with torch.no_grad():
+        for images, labels in testset_loader:
+            # TODO: ensure evalaution happens on the GPU
+            images, labels = images.to(device), labels.to(device)
+
+            # TODO: feed the images into the model and obtain the predictions (forward pass)
+            outputs = model(images)
+
+            loss = loss_function(outputs, labels)
+
+            # TODO: Calculate test loss
+            test_loss += loss.item() * images.size(0)
+
+            '''TODO: make a prediction and determine whether it is correct!'''
+            # TODO: identify the digit with the highest probability prediction for the images in the test dataset.
+            predicted = torch.argmax(outputs, dim=1)
+
+            # TODO: tally the number of correct predictions
+            correct_pred += (predicted == labels).sum().item()
+
+            # TODO: tally the total number of predictions
+            total_pred += labels.size(0)
+
+
+    # Compute average loss and accuracy
+    test_loss /= total_pred
+    test_acc = correct_pred / total_pred
+    return test_loss, test_acc
+
+# TODO: call the evaluate function to evaluate the trained model!!
+test_loss, test_acc = evaluate(fc_model, trainset_loader, loss_function)
+
+
+print('Test accuracy:', test_acc)
