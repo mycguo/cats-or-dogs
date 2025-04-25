@@ -1,4 +1,5 @@
 # Import PyTorch and other relevant libraries
+# https://github.com/MITDeepLearning/introtodeeplearning/tree/master/lab2
 import comet_ml
 import torch
 import torch.nn as nn
