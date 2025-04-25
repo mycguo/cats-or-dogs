@@ -3,3 +3,13 @@ torch
 streamlit
 fastai
 python-dotenv
+mitdeeplearning
+torchvision
+matplotlib
+numpy
+tdqm
+torchsummary
+comet_ml
+IPython
+scipy
+opencv-python
