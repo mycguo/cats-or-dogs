@@ -13,3 +13,4 @@ comet_ml
 IPython
 scipy
 opencv-python
+pathlib
